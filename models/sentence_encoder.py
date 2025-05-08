@@ -19,7 +19,7 @@ class SentenceTransformerModel(nn.Module):
         return torch.max(token_embeddings, dim=1).values
 
     
-    def encode(self, sentences):
+    def forward(self, sentences):
         self.eval()
         inputs = self.tokenizer(
             sentences,
@@ -27,7 +27,5 @@ class SentenceTransformerModel(nn.Module):
             truncation=True,
             return_tensors="pt"
         )
-        with torch.no_grad():
-            model_output = self.encoder(**inputs)
-        sentence_embeddings = self.max_pool(model_output, inputs["attention_mask"])
-        return sentence_embeddings
+        model_output = self.encoder(**inputs)
+        return self.max_pool(model_output, inputs["attention_mask"])
