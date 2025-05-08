@@ -7,6 +7,7 @@ def main(sentences):
     embeddings = model.encode(sentences)
 
     for sentence, embedding in zip(sentences, embeddings):
+        print(f"\nSentence: {sentence}")
         print(f"Shape: {embedding.shape}")
         print(f"Embedding: {embedding}\n")
 
